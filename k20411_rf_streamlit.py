@@ -3,7 +3,7 @@ import streamlit as st
 import os
 import numpy as np
 import joblib
-#from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 
 st.title('DỰ ĐOÁN BÁN CHÉO')
@@ -39,6 +39,8 @@ def predict(model, input_df):
     return predictions[0]
 
 def user_input_features():
+    global vehicle_damage
+    global previous_insurance
     vehicle_age_0, vehicle_age_1, vehicle_age_2 = [0.0, 0.0, 0.0]
     if vehicle_age < 1.0:
         vehicle_age_0 = 1.0
@@ -61,9 +63,6 @@ def main():
     if button:
         input_df = user_input_features()
         prediction = predict(rfModel, input_df)
-        st.write('''
-        # Kết quả
-        ''')
         st.write(result[prediction])
 
 if __name__ == '__main__':
